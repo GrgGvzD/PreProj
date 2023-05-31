@@ -16,12 +16,10 @@ public class UserDaoJDBCImpl implements UserDao {
     public void createUsersTable() {
         try  {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE `mydbtest`.`Users` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(45) NULL,`lastname` VARCHAR(45) NULL,`age` INT(3) NULL");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS mydbtest.Users (id BIGINT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(45), lastname VARCHAR(45), age INT(3))");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        String tableCreate = "CREATE TABLE `mydbtest`.`Users` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(45) NULL,`lastname` VARCHAR(45) NULL,`age` INT(3) NULL, PRIMARY KEY (`id`))";
-//        Statement statement =
     }
 
     public void dropUsersTable() {
@@ -46,7 +44,11 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void removeUserById(long id) {
-
+        try {
+            PreparedStatement pStat = connection.prepareStatement("DELETE FROM Users WHERE id = ?");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<User> getAllUsers() {
