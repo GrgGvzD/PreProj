@@ -20,8 +20,10 @@ public class UserDaoHibernateImpl implements UserDao {
     public void createUsersTable() {
         try {
             Session session = sessionFactory.getCurrentSession();
+           // Session session = sessionFactory.openSession();
             session.beginTransaction();
-            session.createQuery("create table if not exists Users (id bigint not null auto_increment, age tinyint, last_name varchar(255), name varchar(255) primary key (id))" )
+            //session.createQuery("create table if not exists Users (id bigint not null auto_increment, age tinyint, last_name varchar(255), name varchar(255) primary key (id))" )
+            session.createQuery("CREATE TABLE IF NOT EXISTS mydbtest.Users (id BIGINT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(45), lastname VARCHAR(45), age INT(3))" )
                     .executeUpdate();
             session.getTransaction().commit();
         } catch (HibernateException e) {
