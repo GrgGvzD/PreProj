@@ -12,55 +12,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-/*public class Util {
-	private final static String URL = "jdbc:mysql://localhost:3306/mydbtest";
-	private final static String USERNAME = "root";
-	private final static String PASSWORD = "Rooot";
-	//private Connection connection = null;
-	//Statement statement = null;
-	private SessionFactory sessionFactory = null;
-	private static Util util = null;
-
-
-	public Util(){
-		Configuration cfg = new Configuration()
-				.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect")
-				.setProperty("hibernate.connection.username",USERNAME)
-				.setProperty("hibernate.connection.password", PASSWORD)
-				.setProperty("hibernate.connection.url",URL)
-				.configure();
-		sessionFactory = cfg.addAnnotatedClass(User.class).buildSessionFactory();
-//		sessionFactory = new Configuration()
-//				.configure("hibernate.cfg.xml")
-//				.addAnnotatedClass(User.class)
-//				.buildSessionFactory();
-		//connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-		//System.out.println(connection.isClosed());
-
-	}
-	public SessionFactory getSessionFactory() { return sessionFactory;}
-
-	/*public Connection getConnection() {
-		return connection;
-	}*/
-	/*public static Util getUtil(){
-		if(util == null) {
-			util = new Util();
-		}
-		return  util;
-	}
-}*/
 
 public class Util {
-	private final static String URL = "jdbc:mysql://localhost:3306/mydbtest";
-	private final static String USERNAME = "root";
-	private final static String PASSWORD = "Rooot";
-	private final static String DRIVER = "com.mysql.cj.jdbc.Driver";
+	private static final String URL = "jdbc:mysql://localhost:3306/mydbtest";
+	private static final String USERNAME = "root";
+//	private static final String PASSWORD = "Rooot";
+	private static final String PASSWORD = "root";
+	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
-	private static Util util = null;
+//	private static Util util = null;
 	//Configuration cfg;
 	private static SessionFactory sessionFactory = null;
-	public Util() {
+	//public Util() {}
+
+	public static SessionFactory getSessionFactory () {
 		if (sessionFactory == null) {
 			try {
 
@@ -82,21 +47,18 @@ public class Util {
 						.buildSessionFactory();
 
 			} catch (Throwable ex) {
-				System.err.println("build SeesionFactory failed :" + ex);
+				System.err.println("build SessionFactory failed :" + ex);
 				throw new ExceptionInInitializerError(ex);
 			}
 		}
-	}
-
-	public static SessionFactory getSessionFactory () {
 		return sessionFactory;
 	}
 
-	public static Util getUtil(){
-		if(util == null) {
-			util = new Util();
-		}
-		return  util;
-	}
+//	public static Util getUtil(){
+//		if(util == null) {
+//			util = new Util();
+//		}
+//		return  util;
+//	}
 
 }

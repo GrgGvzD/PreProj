@@ -9,8 +9,8 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    Util util = Util.getUtil();
-    SessionFactory sessionFactory = util.getSessionFactory();
+//    Util util = Util.getUtil();
+    SessionFactory sessionFactory = Util.getSessionFactory();
     public UserDaoHibernateImpl() {
 
     }
@@ -23,7 +23,7 @@ public class UserDaoHibernateImpl implements UserDao {
            // Session session = sessionFactory.openSession();
             session.beginTransaction();
             //session.createQuery("create table if not exists Users (id bigint not null auto_increment, age tinyint, last_name varchar(255), name varchar(255) primary key (id))" )
-            session.createQuery("CREATE TABLE IF NOT EXISTS mydbtest.Users (id BIGINT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(45), lastname VARCHAR(45), age INT(3))" )
+            session.createSQLQuery("CREATE TABLE IF NOT EXISTS mydbtest.Users (id BIGINT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(45), lastname VARCHAR(45), age INT)" ) //toDo age INT(3)
                     .executeUpdate();
             session.getTransaction().commit();
         } catch (HibernateException e) {
@@ -32,12 +32,14 @@ public class UserDaoHibernateImpl implements UserDao {
         }
     }
 
+
+
     @Override
     public void dropUsersTable() {
         try {
             Session session = sessionFactory.getCurrentSession();
             session.beginTransaction();
-            session.createQuery("DROP TABLE Users").executeUpdate();
+            session.createSQLQuery("DROP TABLE  IF EXISTS  Users").executeUpdate();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             System.out.println("dropUsersTable - ne rabotaet");
@@ -78,6 +80,7 @@ public class UserDaoHibernateImpl implements UserDao {
             Session session = sessionFactory.getCurrentSession();
             session.beginTransaction();
             List<User> users = session.createQuery("from User").getResultList();
+            session.getTransaction().commit();
             return users;
         } catch (HibernateException e) {
             System.out.println("getAllUsers - ne rabotaet");
